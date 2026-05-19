@@ -1,10 +1,122 @@
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { toast } from "react-hot-toast";
 
 import AuthBanner from "../../components/Auth/AuthBanner";
 
 import { FcGoogle } from "react-icons/fc";
 
+import { AuthContext } from "../../providers/AuthProvider";
+
 const Register = () => {
+
+  const {
+  createUser,
+  googleLogin,
+  updateUserProfile,
+} = useContext(AuthContext);
+
+const navigate = useNavigate();
+
+const [error, setError] =
+  useState("");
+
+const handleRegister = async (e) => {
+
+  e.preventDefault();
+
+  setError("");
+
+  const form = e.target;
+
+  const name =
+    form.name.value;
+
+  const photo =
+    form.photo.value;
+
+  const email =
+    form.email.value;
+
+  const password =
+    form.password.value;
+
+  // validation
+  const uppercaseRegex =
+    /[A-Z]/;
+
+  const lowercaseRegex =
+    /[a-z]/;
+
+  if (
+    password.length < 6
+  ) {
+    return setError(
+      "Password must be at least 6 characters"
+    );
+  }
+
+  if (
+    !uppercaseRegex.test(password)
+  ) {
+    return setError(
+      "Password must contain one uppercase letter"
+    );
+  }
+
+  if (
+    !lowercaseRegex.test(password)
+  ) {
+    return setError(
+      "Password must contain one lowercase letter"
+    );
+  }
+
+  try {
+
+    await createUser(
+      email,
+      password
+    );
+
+    await updateUserProfile({
+      displayName: name,
+      photoURL: photo,
+    });
+
+    toast.success(
+      "Registration successful!"
+    );
+
+    navigate("/login");
+
+  } catch (err) {
+
+    setError(err.message);
+  }
+};
+
+const handleGoogleSignup =
+  async () => {
+
+    try {
+
+      await googleLogin();
+
+      toast.success(
+        "Google signup successful!"
+      );
+
+      navigate("/");
+
+    } catch (err) {
+
+      toast.error(err.message);
+    }
+  };
+
 
   return (
     <section className="min-h-screen bg-slate-50 flex items-center justify-center px-5 py-10">
@@ -31,7 +143,10 @@ const Register = () => {
 
           </div>
 
-          <form className="mt-10 space-y-6">
+          <form
+         onSubmit={handleRegister}
+          className="mt-10 space-y-6"
+              >
 
             {/* name */}
             <div>
@@ -41,7 +156,7 @@ const Register = () => {
               </label>
 
               <input
-                type="text"
+                type="text" name="name"
                 placeholder="Enter your name"
                 className="w-full mt-3 px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
               />
@@ -56,7 +171,7 @@ const Register = () => {
               </label>
 
               <input
-                type="text"
+                type="text" name="photo"
                 placeholder="Enter photo URL"
                 className="w-full mt-3 px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
               />
@@ -71,7 +186,7 @@ const Register = () => {
               </label>
 
               <input
-                type="email"
+                type="email" name="email"
                 placeholder="Enter your email"
                 className="w-full mt-3 px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
               />
@@ -86,12 +201,22 @@ const Register = () => {
               </label>
 
               <input
-                type="password"
+                type="password" name="password"
                 placeholder="Enter your password"
                 className="w-full mt-3 px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
               />
 
             </div>
+
+            {/* error */}
+
+            {
+            error && (
+            <p className="text-red-500 font-medium">
+            {error}
+            </p>
+            )
+            }
 
             {/* register button */}
             <button
@@ -116,7 +241,7 @@ const Register = () => {
           </div>
 
           {/* google */}
-          <button
+          <button onClick={handleGoogleSignup}
             className="w-full py-4 rounded-2xl border border-slate-300 flex items-center justify-center gap-3 hover:bg-slate-50 duration-300"
           >
 
