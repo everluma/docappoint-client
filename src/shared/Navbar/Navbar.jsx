@@ -11,6 +11,12 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import { toast } from "react-hot-toast";
+
+
+
+
+
 
 const Navbar = () => {
 
@@ -18,6 +24,23 @@ const Navbar = () => {
     useContext(AuthContext);
 
   const [open, setOpen] = useState(false);
+
+  const handleLogout =
+  async () => {
+
+    try {
+
+      await logoutUser();
+
+      toast.success(
+        "Logout successful!"
+      );
+
+    } catch (err) {
+
+      toast.error(err.message);
+    }
+  };
 
   const navLinkClass = ({ isActive }) =>
     isActive
@@ -93,7 +116,7 @@ const Navbar = () => {
                 />
 
                 <button
-                  onClick={logoutUser}
+                  onClick={handleLogout}
                   className="px-5 py-2 rounded-xl bg-slate-900 text-white hover:bg-cyan-500 duration-300"
                 >
                   Logout
@@ -149,7 +172,7 @@ const Navbar = () => {
               {
                 user ? (
                   <button
-                    onClick={logoutUser}
+                    onClick={handleLogout}
                     className="px-5 py-3 rounded-xl bg-slate-900 text-white"
                   >
                     Logout
