@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
 import doctors from "../../data/doctors";
@@ -9,6 +10,41 @@ const DoctorDetails = () => {
   const doctor = doctors.find(
     (doc) => doc.id === id
   );
+
+
+  const handleBooking = (e) => {
+
+  e.preventDefault();
+
+  const form = e.target;
+
+  const bookingData = {
+    doctorId: doctor.id,
+    doctorName: doctor.name,
+    specialty: doctor.specialty,
+    hospital: doctor.hospital,
+    fee: doctor.fee,
+    patientName: form.patientName.value,
+    patientEmail: form.patientEmail.value,
+    appointmentDate: form.appointmentDate.value,
+    problem: form.problem.value,
+  };
+
+  const existingBookings =
+    JSON.parse(localStorage.getItem("bookings")) || [];
+
+  existingBookings.push(bookingData);
+
+  localStorage.setItem(
+    "bookings",
+    JSON.stringify(existingBookings)
+  );
+
+  toast.success("Appointment booked successfully!");
+
+  form.reset();
+  };
+
 
   if (!doctor) {
     return (
@@ -23,7 +59,7 @@ const DoctorDetails = () => {
 
       <div className="bg-white rounded-[40px] p-8 lg:p-14 shadow-xl border border-slate-100">
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
 
           {/* image */}
           <div>
@@ -120,6 +156,58 @@ const DoctorDetails = () => {
               >
                 Contact Doctor
               </button>
+
+            </div>
+
+            {/* booking card */}
+            <div className="mt-10 bg-slate-50 border border-slate-200 rounded-[30px] p-6">
+
+              <h3 className="text-2xl font-bold text-slate-900">
+                Book Appointment
+              </h3>
+
+              <p className="text-slate-500 mt-2">
+                Schedule your appointment with {doctor.name}
+              </p>
+
+              <form 
+              onSubmit={handleBooking}
+              className="mt-6 space-y-5">
+
+                <input
+                  type="text"
+                  name="patientName"
+                  placeholder="Patient Name"
+                  className="w-full px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
+                />
+
+                <input
+                  type="email"
+                  name="patientEmail"
+                  placeholder="Patient Email"
+                  className="w-full px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
+                />
+
+                <input
+                  type="date"
+                  name="appointmentDate"
+                  className="w-full px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
+                />
+
+                <textarea
+                name="problem"
+                  placeholder="Write your problem..."
+                  rows="4"
+                  className="w-full px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500 resize-none"
+                ></textarea>
+
+                <button
+                  className="w-full py-4 rounded-2xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 duration-300"
+                >
+                  Confirm Booking
+                </button>
+
+              </form>
 
             </div>
 
