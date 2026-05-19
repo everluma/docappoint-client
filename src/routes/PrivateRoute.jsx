@@ -1,66 +1,43 @@
 import {
-  createBrowserRouter,
+  useContext,
+} from "react";
+
+import {
+  Navigate,
+  useLocation,
 } from "react-router-dom";
 
-import MainLayout from "../layouts/MainLayout";
-import DashboardLayout from "../layouts/DashboardLayout";
+import { AuthContext } from "../providers/AuthProvider";
 
-import Home from "../pages/Home/Home";
-import AllAppointments from "../pages/AllAppointments/AllAppointments";
-import DoctorDetails from "../pages/DoctorDetails/DoctorDetails";
-import Login from "../pages/Login/Login";
-import Register from "../pages/Register/Register";
-import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import LoadingSpinner from "../shared/Loading/LoadingSpinner";
 
-import MyBookings from "../pages/Dashboard/MyBookings";
-import MyProfile from "../pages/Dashboard/MyProfile";
+const PrivateRoute = ({
+  children,
+}) => {
 
+  const {
+    user,
+    loading,
+  } = useContext(AuthContext);
 
+  const location =
+    useLocation();
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/appointments",
-        element: <AllAppointments />,
-      },
-      {
-        path: "/doctor/:id",
-        element: <DoctorDetails />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
-    ],
-  },
+  if (!user) {
 
-  {
-    path: "/dashboard",
-    element: <DashboardLayout />,
-    children: [
-      {
-        path: "my-bookings",
-        element: <MyBookings />,
-      },
-      {
-        path: "my-profile",
-        element: <MyProfile />,
-      },
-    ],
-  },
-]);
+    return (
+      <Navigate
+        state={location.pathname}
+        to="/login"
+      />
+    );
+  }
 
-export default router;
+  return children;
+};
+
+export default PrivateRoute;

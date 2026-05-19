@@ -14,6 +14,7 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 import MyBookings from "../pages/Dashboard/MyBookings";
 import MyProfile from "../pages/Dashboard/MyProfile";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -33,8 +34,12 @@ const router = createBrowserRouter([
         element: <AllAppointments />,
       },
       {
-        path: "/doctor/:id",
-        element: <DoctorDetails />,
+      path: "/doctor/:id",
+      element: (
+      <PrivateRoute>
+      <DoctorDetails />
+      </PrivateRoute>
+      ),
       },
       {
         path: "/login",
@@ -48,8 +53,12 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/dashboard",
-    element: <DashboardLayout />,
+  path: "/dashboard",
+  element: (
+    <PrivateRoute>
+      <DashboardLayout />
+    </PrivateRoute>
+  ),
     children: [
       {
         path: "my-bookings",

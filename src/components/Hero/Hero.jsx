@@ -1,100 +1,142 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
 
-import { Autoplay } from "swiper/modules";
-
-import "swiper/css";
+import {
+  FaArrowRight,
+} from "react-icons/fa6";
 
 const Hero = () => {
 
-  const slides = [
-    {
-      id: 1,
-      title: "Book Trusted Doctors Instantly",
-      description:
-        "Find experienced specialists and schedule appointments without waiting in long queues.",
-      image:
-        "https://i.ibb.co.com/8DGwz7D/doctor1.jpg",
-    },
-
-    {
-      id: 2,
-      title: "Modern Healthcare Experience",
-      description:
-        "Seamless appointment booking with verified doctors and modern healthcare facilities.",
-      image:
-        "https://i.ibb.co.com/3N6tq5S/doctor2.jpg",
-    },
-
-    {
-      id: 3,
-      title: "Your Health, Our Priority",
-      description:
-        "Connect with top-rated doctors anytime and manage your appointments effortlessly.",
-      image:
-        "https://i.ibb.co.com/7Y9q1dD/doctor3.jpg",
-    },
-  ];
-
   return (
-    <section className="max-w-7xl mx-auto px-5 pt-10">
+    <section className="relative overflow-hidden bg-gradient-to-br from-cyan-50 via-white to-sky-100">
 
-      <Swiper
-        modules={[Autoplay]}
-        autoplay={{
-          delay: 3500,
-        }}
-        loop={true}
-      >
+      {/* glow */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-300/30 rounded-full blur-3xl"></div>
 
-        {
-          slides.map((slide) => (
-            <SwiperSlide key={slide.id}>
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-sky-300/30 rounded-full blur-3xl"></div>
 
-              <div className="grid lg:grid-cols-2 items-center gap-12 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-[40px] p-8 lg:p-16">
+      <div className="max-w-7xl mx-auto px-5 py-20 lg:py-28 grid lg:grid-cols-2 gap-14 items-center">
 
-                {/* left */}
-                <div>
+        {/* left */}
+        <div>
 
-                  <h1 className="text-4xl lg:text-6xl font-black leading-tight text-slate-900">
-                    {slide.title}
-                  </h1>
+          <div className="inline-flex items-center gap-2 bg-cyan-100 text-cyan-700 px-5 py-2 rounded-full text-sm font-semibold">
 
-                  <p className="mt-6 text-lg text-slate-600 leading-relaxed">
-                    {slide.description}
-                  </p>
+            Trusted Healthcare Platform
 
-                  <div className="flex flex-wrap gap-4 mt-8">
+          </div>
 
-                    <button className="px-8 py-4 rounded-2xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 duration-300">
-                      Book Appointment
-                    </button>
+          <h1 className="mt-7 text-5xl lg:text-7xl font-black leading-tight text-slate-900">
 
-                    <button className="px-8 py-4 rounded-2xl border border-slate-300 hover:bg-white duration-300">
-                      Explore Doctors
-                    </button>
+            Book Your Doctor Appointment
 
-                  </div>
+            <span className="text-cyan-500">
+              {" "}Instantly
+            </span>
 
-                </div>
+          </h1>
 
-                {/* right */}
-                <div className="flex justify-center">
+          <p className="mt-7 text-lg text-slate-600 leading-relaxed max-w-xl">
 
-                  <img
-                    src={slide.image}
-                    alt="doctor"
-                    className="w-full max-w-md rounded-[30px] object-cover shadow-2xl"
-                  />
+            Connect with experienced specialists, schedule appointments effortlessly, and manage your healthcare journey with confidence.
 
-                </div>
+          </p>
 
-              </div>
+          <div className="mt-10 flex flex-wrap items-center gap-5">
 
-            </SwiperSlide>
-          ))
-        }
+            <Link
+              to="/appointments"
+              className="px-8 py-4 rounded-2xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 duration-300 flex items-center gap-3 shadow-lg shadow-cyan-200"
+            >
 
-      </Swiper>
+              Explore Doctors
+
+              <FaArrowRight />
+
+            </Link>
+
+            <button
+              className="px-8 py-4 rounded-2xl border border-slate-300 font-semibold hover:border-cyan-500 hover:text-cyan-500 duration-300"
+            >
+              Learn More
+            </button>
+
+          </div>
+
+          {/* stats */}
+          <div className="mt-14 grid grid-cols-3 gap-6">
+
+            <div>
+
+              <h3 className="text-3xl font-black text-slate-900">
+                500+
+              </h3>
+
+              <p className="text-slate-500 mt-2">
+                Doctors
+              </p>
+
+            </div>
+
+            <div>
+
+              <h3 className="text-3xl font-black text-slate-900">
+                12K+
+              </h3>
+
+              <p className="text-slate-500 mt-2">
+                Patients
+              </p>
+
+            </div>
+
+            <div>
+
+              <h3 className="text-3xl font-black text-slate-900">
+                99%
+              </h3>
+
+              <p className="text-slate-500 mt-2">
+                Satisfaction
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* right */}
+        <div className="relative">
+
+          {/* card bg */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-sky-400 rounded-[40px] rotate-6"></div>
+
+          <div className="relative bg-white/70 backdrop-blur-xl border border-white/40 rounded-[40px] p-5 shadow-2xl">
+
+            <img
+              src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=1200&auto=format&fit=crop"
+              alt="doctors"
+              className="w-full h-[580px] rounded-[30px] object-cover"
+            />
+
+          </div>
+
+          {/* floating card */}
+          <div className="absolute -bottom-8 -left-5 bg-white rounded-3xl shadow-2xl p-5 border border-slate-100">
+
+            <h4 className="font-bold text-slate-800">
+              24/7 Appointment Support
+            </h4>
+
+            <p className="text-slate-500 text-sm mt-2">
+              Fast & secure healthcare booking
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </section>
   );
