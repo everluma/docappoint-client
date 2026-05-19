@@ -1,10 +1,103 @@
-import { Link } from "react-router-dom";
+import {
+  useContext,
+  useState,
+} from "react";
 
-import AuthBanner from "../../components/Auth/AuthBanner";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+
+import { toast } from "react-hot-toast";
 
 import { FcGoogle } from "react-icons/fc";
 
+import AuthBanner from "../../components/Auth/AuthBanner";
+
+import { AuthContext } from "../../providers/AuthProvider";
+
+
 const Login = () => {
+
+  // functionality code
+
+  const {
+  loginUser,
+  googleLogin,
+} = useContext(AuthContext);
+
+const navigate =
+  useNavigate();
+
+const location =
+  useLocation();
+
+const [error, setError] =
+  useState("");
+
+const from =
+  location?.state || "/";
+
+
+  // hangle function 
+
+  const handleLogin =
+  async (e) => {
+
+    e.preventDefault();
+
+    setError("");
+
+    const form =
+      e.target;
+
+    const email =
+      form.email.value;
+
+    const password =
+      form.password.value;
+
+    try {
+
+      await loginUser(
+        email,
+        password
+      );
+
+      toast.success(
+        "Login successful!"
+      );
+
+      navigate(from);
+
+    } catch (err) {
+
+      setError(err.message);
+    }
+  };
+
+const handleGoogleLogin =
+  async () => {
+
+    try {
+
+      await googleLogin();
+
+      toast.success(
+        "Google login successful!"
+      );
+
+      navigate("/");
+
+    } catch (err) {
+
+      toast.error(err.message);
+    }
+  };
+
+
+  // design section in login page
 
   return (
     <section className="min-h-screen bg-slate-50 flex items-center justify-center px-5 py-10">
@@ -31,7 +124,8 @@ const Login = () => {
 
           </div>
 
-          <form className="mt-10 space-y-6">
+          <form onSubmit={handleLogin}
+          className="mt-10 space-y-6">
 
             {/* email */}
             <div>
@@ -41,7 +135,7 @@ const Login = () => {
               </label>
 
               <input
-                type="email"
+                type="email" name="email"
                 placeholder="Enter your email"
                 className="w-full mt-3 px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
               />
@@ -56,7 +150,7 @@ const Login = () => {
               </label>
 
               <input
-                type="password"
+                type="password" name="password"
                 placeholder="Enter your password"
                 className="w-full mt-3 px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
               />
@@ -73,6 +167,16 @@ const Login = () => {
               </button>
 
             </div>
+
+            {/* error */}
+
+            {
+           error && (
+           <p className="text-red-500 font-medium">
+           {error}
+           </p>
+           )
+            }
 
             {/* login button */}
             <button
@@ -98,6 +202,7 @@ const Login = () => {
 
           {/* google */}
           <button
+           onClick={handleGoogleLogin}
             className="w-full py-4 rounded-2xl border border-slate-300 flex items-center justify-center gap-3 hover:bg-slate-50 duration-300"
           >
 
