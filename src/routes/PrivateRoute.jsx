@@ -23,20 +23,24 @@ const PrivateRoute = ({
   const location =
     useLocation();
 
+  // loading state
   if (loading) {
     return <LoadingSpinner />;
   }
 
+  // not logged in
   if (!user) {
 
     return (
       <Navigate
-        state={location.pathname}
         to="/login"
+        state={location.pathname}
+        replace
       />
     );
   }
 
+  // logged in
   return children;
 };
 

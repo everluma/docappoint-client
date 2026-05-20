@@ -84,7 +84,7 @@ const MyBookings = () => {
                     className="bg-white rounded-[30px] border border-slate-200 p-7 shadow-sm hover:shadow-xl duration-300"
                   >
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-5">
 
                       <span className="px-4 py-2 rounded-full bg-cyan-100 text-cyan-600 text-sm font-semibold">
 
@@ -114,13 +114,13 @@ const MyBookings = () => {
 
                     <div className="mt-8 space-y-3">
 
-                      <div className="flex justify-between">
+                      <div className="flex justify-between gap-5">
 
                         <span className="text-slate-500">
                           Patient
                         </span>
 
-                        <span className="font-semibold text-slate-900">
+                        <span className="font-semibold text-slate-900text-right">
 
                           {booking.patientName}
 
@@ -128,13 +128,13 @@ const MyBookings = () => {
 
                       </div>
 
-                      <div className="flex justify-between">
+                      <div className="flex justify-between gap-5">
 
                         <span className="text-slate-500">
                           Email
                         </span>
 
-                        <span className="font-semibold text-slate-900">
+                        <span className="font-semibold text-slate-900text-right">
 
                           {booking.patientEmail}
 
@@ -142,13 +142,13 @@ const MyBookings = () => {
 
                       </div>
 
-                      <div className="flex justify-between">
+                      <div className="flex justify-between gap-5">
 
                         <span className="text-slate-500">
                           Fee
                         </span>
 
-                        <span className="font-semibold text-slate-900">
+                        <span className="font-semibold text-slate-900text-right">
 
                           ৳{booking.fee}
 
