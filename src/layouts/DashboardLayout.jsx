@@ -9,7 +9,15 @@ import {
   FaArrowLeft,
 } from "react-icons/fa6";
 
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+
+
+
 const DashboardLayout = () => {
+
+  const { user } =
+  useContext(AuthContext);
 
   const navClass = ({ isActive }) =>
     isActive
@@ -38,23 +46,36 @@ const DashboardLayout = () => {
           </div>
 
           {/* profile */}
-          <div className="mt-10 bg-slate-50 border border-slate-200 rounded-[30px] p-5 text-center">
+          {/* profile */}
+<div className="mt-10 bg-slate-50 border border-slate-200 rounded-[30px] p-5 text-center">
 
-            <img
-              src="https://i.ibb.co.com/2kR9QHL/user.png"
-              alt="user"
-              className="w-24 h-24 rounded-full mx-auto object-cover border-4 border-cyan-500"
-            />
+  <img
+    src={
+      user?.photoURL ||
+      "https://i.ibb.co.com/2kR9QHL/user.png"
+    }
+    alt="user"
+    className="w-24 h-24 rounded-full mx-auto object-cover border-4 border-cyan-500"
+  />
 
-            <h3 className="mt-5 text-2xl font-bold text-slate-900">
-              Patient Panel
-            </h3>
+  <h3 className="mt-5 text-2xl font-bold text-slate-900">
 
-            <p className="text-slate-500 mt-2">
-              Manage your appointments
-            </p>
+    {
+      user?.displayName ||
+      "Unknown User"
+    }
 
-          </div>
+  </h3>
+
+  <p className="text-slate-500 mt-2 break-all">
+
+    {
+      user?.email
+    }
+
+  </p>
+
+</div>
 
           {/* nav links */}
           <div className="mt-10 flex flex-col gap-4">
