@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://docappoint-server-hz5a.onrender.com",
   withCredentials: true,
 });
 
