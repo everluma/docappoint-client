@@ -4,6 +4,8 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 import DoctorCard from "./DoctorCard";
 
+import LoadingSpinner from "../../shared/Loading/LoadingSpinner";
+
 const TopDoctors = () => {
 
   const axiosSecure =
@@ -83,7 +85,7 @@ const TopDoctors = () => {
       </div>
 
       {/* loading */}
-      {
+      {/* {
         loading && (
           <div className="text-center py-20">
 
@@ -93,7 +95,11 @@ const TopDoctors = () => {
 
           </div>
         )
-      }
+      } */}
+
+      {
+  loading && <LoadingSpinner />
+}
 
       {/* no result */}
       {
