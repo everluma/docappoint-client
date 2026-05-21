@@ -34,18 +34,27 @@ const MyBookings = () => {
 
 
 
-  const handleDeleteBooking = (indexToDelete) => {
+  const handleDeleteBooking = async (id) => {
 
-    const updatedBookings =
+  try {
+
+    await axiosSecure.delete(
+      `/bookings/${id}`
+    );
+
+    const remainingBookings =
       bookings.filter(
-        (_, index) =>
-          index !== indexToDelete
+        booking => booking._id !== id
       );
 
-    setBookings(updatedBookings);
+    setBookings(remainingBookings);
 
-    
-  };
+  } catch (error) {
+
+    console.log(error);
+
+  }
+};
 
   return (
     <section className="p-5 lg:p-10">
@@ -92,9 +101,9 @@ const MyBookings = () => {
 
             {
               bookings.map(
-                (booking, index) => (
+                (booking) => (
                   <div
-                    key={index}
+                    key={booking._id}
                     className="bg-white rounded-[30px] border border-slate-200 p-7 shadow-sm hover:shadow-xl duration-300"
                   >
 
@@ -188,8 +197,8 @@ const MyBookings = () => {
 
                     <button
                       onClick={() =>
-                        handleDeleteBooking(index)
-                      }
+                     handleDeleteBooking(booking._id)
+                    }
                       className="w-full mt-6 py-4 rounded-2xl bg-red-500 text-white font-semibold hover:bg-red-600 duration-300"
                     >
                       Cancel Booking
