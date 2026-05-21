@@ -15,10 +15,10 @@ const AuthBanner = ({
       </p>
 
       <img
-        src="https://i.ibb.co.com/Y0bqs0S/doctor-team.png"
-        alt="auth"
-        className="mt-10 rounded-3xl"
-      />
+     src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop"
+     alt="healthcare"
+     className="w-full h-full      object-cover"
+     />
 
     </div>
   );

@@ -18,6 +18,8 @@ import AuthBanner from "../../components/Auth/AuthBanner";
 import { AuthContext } from "../../providers/AuthProvider";
 
 
+
+
 const Login = () => {
 
   // functionality code
@@ -88,7 +90,7 @@ const handleGoogleLogin =
         "Google login successful!"
       );
 
-      navigate("/");
+      navigate(from);
 
     } catch (err) {
 

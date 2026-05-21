@@ -1,23 +1,51 @@
+import { useEffect, useState } from "react";
+
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 import DoctorCard from "./DoctorCard";
-import doctors from "../../data/doctors";
-import { useState } from "react";
 
 const TopDoctors = () => {
 
-  // search state
+  const axiosSecure =
+    useAxiosSecure();
+
+  const [doctors, setDoctors] =
+    useState([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
   const [searchText, setSearchText] =
     useState("");
 
-  // filtered doctors
+  useEffect(() => {
+
+    axiosSecure
+      .get("/top-doctors")
+      .then((res) => {
+
+        setDoctors(res.data);
+
+        setLoading(false);
+      })
+      .catch((error) => {
+
+        console.log(error);
+
+        setLoading(false);
+      });
+
+  }, []);
+
   const filteredDoctors =
     doctors.filter((doctor) =>
       doctor.name
-        .toLowerCase()
+        ?.toLowerCase()
         .includes(
           searchText.toLowerCase()
         ) ||
       doctor.specialty
-        .toLowerCase()
+        ?.toLowerCase()
         .includes(
           searchText.toLowerCase()
         )
@@ -54,8 +82,22 @@ const TopDoctors = () => {
 
       </div>
 
+      {/* loading */}
+      {
+        loading && (
+          <div className="text-center py-20">
+
+            <h2 className="text-3xl font-bold text-cyan-500">
+              Loading Doctors...
+            </h2>
+
+          </div>
+        )
+      }
+
       {/* no result */}
       {
+        !loading &&
         filteredDoctors.length === 0 && (
           <div className="text-center py-20">
 
@@ -77,7 +119,7 @@ const TopDoctors = () => {
         {
           filteredDoctors.map((doctor) => (
             <DoctorCard
-              key={doctor.id}
+              key={doctor._id}
               doctor={doctor}
             />
           ))

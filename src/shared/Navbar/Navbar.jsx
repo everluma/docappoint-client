@@ -10,7 +10,10 @@ import { AuthContext } from "../../providers/AuthProvider";
 import {
   FaBars,
   FaTimes,
+  FaUserCircle,
+  FaSignOutAlt,
 } from "react-icons/fa";
+
 import { toast } from "react-hot-toast";
 
 
@@ -106,24 +109,65 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-4">
 
           {
-            user ? (
-              <>
+  user ? (
 
-                <img
-                  src={user?.photoURL}
-                  alt="user"
-                  className="w-11 h-11 rounded-full object-cover border-2 border-cyan-500"
-                />
+    <div className="relative group">
 
-                <button
-                  onClick={handleLogout}
-                  className="px-5 py-2 rounded-xl bg-slate-900 text-white hover:bg-cyan-500 duration-300"
-                >
-                  Logout
-                </button>
+      <img
+        src={
+          user?.photoURL ||
+          "https://i.ibb.co/4pDNDk1/avatar.png"
+        }
+        alt="user"
+        className="w-11 h-11 rounded-full object-cover border-2 border-cyan-500 cursor-pointer"
+      />
 
-              </>
-            ) : (
+      {/* dropdown */}
+      <div className="absolute right-0 top-14 w-64 bg-white rounded-3xl shadow-2xl border border-slate-100 p-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-300 z-50">
+
+        <div className="pb-4 border-b border-slate-200">
+
+          <h3 className="font-bold text-slate-900">
+            {user?.displayName || "User"}
+          </h3>
+
+          <p className="text-sm text-slate-500 mt-1 break-all">
+            {user?.email}
+          </p>
+
+        </div>
+
+        <div className="mt-4 flex flex-col gap-3">
+
+          <Link
+            to="/dashboard/my-profile"
+            className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-100 duration-300"
+          >
+
+            <FaUserCircle />
+
+            My Profile
+
+          </Link>
+
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-red-50 hover:text-red-500 duration-300 text-left"
+          >
+
+            <FaSignOutAlt />
+
+            Logout
+
+           </button>
+
+           </div>
+
+           </div>
+
+            </div>
+
+             ) : (
               <>
 
                 <Link
