@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const MyBookings = () => {
 
@@ -8,10 +10,14 @@ const MyBookings = () => {
   const [bookings, setBookings] =
     useState([]);
 
-  useEffect(() => {
+    const { user } = useContext(AuthContext);
+
+ useEffect(() => {
+
+  if(user?.email){
 
     axiosSecure
-      .get("/bookings")
+      .get(`/bookings?email=${user.email}`)
       .then(res => {
 
         setBookings(res.data);
@@ -22,9 +28,9 @@ const MyBookings = () => {
         console.log(error);
 
       });
+  }
 
-  }, [axiosSecure]);
-
+}, [axiosSecure, user]);
 
 
 

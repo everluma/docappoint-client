@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import {
   createContext,
   useEffect,
@@ -98,14 +100,39 @@ const AuthProvider = ({ children }) => {
 
     const unsubscribe =
       onAuthStateChanged(
-        auth,
-        (currentUser) => {
+  auth,
+  async (currentUser) => {
 
-          setUser(currentUser);
+    setUser(currentUser);
 
-          setLoading(false);
+    if (currentUser?.email) {
+
+      const userInfo = {
+        email: currentUser.email,
+      };
+
+      await axios.post(
+        "https://docappoint-server-hz5a.onrender.com/jwt",
+        userInfo,
+        {
+          withCredentials: true,
         }
       );
+
+    } else {
+
+      await axios.post(
+        "https://docappoint-server-hz5a.onrender.com/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+    }
+
+    setLoading(false);
+  }
+);
 
     return () => {
       unsubscribe();
