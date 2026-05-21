@@ -113,6 +113,22 @@ VITE_appId=your_app_id
 
 ---
 
+Create a `.env` file in the server folder and add:
+
+```env
+DB_USER=docappointDB
+DB_PASS=Docappoint123
+ACCESS_TOKEN_SECRET=9f8c6b7a5e3d2c1b0a4f5e6d7c8b9a0f1e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6b
+```
+
+---
+
+## 📌 Project Status
+
+✅ Completed & Deployed
+
+This project is fully functional and deployed with secure authentication, protected APIs, booking management system, and responsive UI.
+
 ## 👩‍💻 Developed By
 
 Farjana Aktar Monisha

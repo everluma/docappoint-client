@@ -3,6 +3,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
+import LoadingSpinner from "../../shared/Loading/LoadingSpinner";
 
 const MyBookings = () => {
 
@@ -14,7 +15,8 @@ const MyBookings = () => {
     const [selectedBooking, setSelectedBooking] =
   useState(null);
 
-    const { user } = useContext(AuthContext);
+    const { user, loading } =
+  useContext(AuthContext);
 
  useEffect(() => {
 
@@ -114,6 +116,11 @@ const MyBookings = () => {
     toast.error("Failed to update booking!");
 
   }
+};
+
+
+if (loading) {
+  return <LoadingSpinner />;
 };
 
   return (

@@ -105,6 +105,8 @@ const AuthProvider = ({ children }) => {
 
     setUser(currentUser);
 
+    setLoading(true);
+
     if (currentUser?.email) {
 
       const userInfo = {

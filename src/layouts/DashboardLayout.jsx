@@ -52,7 +52,7 @@ const DashboardLayout = () => {
   <img
     src={
       user?.photoURL ||
-      "https://i.ibb.co.com/2kR9QHL/user.png"
+      "https://i.ibb.co/2kR9QHL/user.png"
     }
     alt="user"
     className="w-24 h-24 rounded-full mx-auto object-cover border-4 border-cyan-500"
