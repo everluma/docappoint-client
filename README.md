@@ -6,9 +6,21 @@ DocAppoint is a modern healthcare appointment booking platform where users can e
 
 ## 🌐 Live Website
 
-🔗 https://docappoint-client-f4nr.vercel.app
+ 🔗 Live Site: https://docappoint-client-f4nr.vercel.app
 
 ---
+
+## 🔗 Repository Links
+
+### Client Repository
+```bash
+https://github.com/everluma/docappoint-client
+```
+
+### Server Repository
+```bash
+https://github.com/everluma/docappoint-server
+```
 
 ## ✨ Main Features
 
@@ -69,7 +81,7 @@ mongodb
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/docappoint-client.git
+git clone https://github.com/everluma/docappoint-client.git
 ```
 
 ### Install dependencies
