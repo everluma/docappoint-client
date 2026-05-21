@@ -1,20 +1,32 @@
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyBookings = () => {
+
+  const axiosSecure = useAxiosSecure();
 
   const [bookings, setBookings] =
     useState([]);
 
   useEffect(() => {
 
-    const storedBookings =
-      JSON.parse(
-        localStorage.getItem("bookings")
-      ) || [];
+    axiosSecure
+      .get("/bookings")
+      .then(res => {
 
-    setBookings(storedBookings);
+        setBookings(res.data);
 
-  }, []);
+      })
+      .catch(error => {
+
+        console.log(error);
+
+      });
+
+  }, [axiosSecure]);
+
+
+
 
   const handleDeleteBooking = (indexToDelete) => {
 
@@ -26,10 +38,7 @@ const MyBookings = () => {
 
     setBookings(updatedBookings);
 
-    localStorage.setItem(
-      "bookings",
-      JSON.stringify(updatedBookings)
-    );
+    
   };
 
   return (
