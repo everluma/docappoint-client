@@ -4,10 +4,14 @@ import { useParams } from "react-router-dom";
 import doctors from "../../data/doctors";
 
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const DoctorDetails = () => {
 
   const axiosSecure = useAxiosSecure();
+
+  const { user } = useContext(AuthContext);
 
   const { id } = useParams();
 
@@ -23,16 +27,17 @@ const DoctorDetails = () => {
   const form = e.target;
 
   const bookingData = {
-    doctorId: doctor.id,
-    doctorName: doctor.name,
-    specialty: doctor.specialty,
-    hospital: doctor.hospital,
-    fee: doctor.fee,
-    patientName: form.patientName.value,
-    patientEmail: form.patientEmail.value,
-    appointmentDate: form.appointmentDate.value,
-    problem: form.problem.value,
-  };
+  doctorId: doctor.id,
+  doctorName: doctor.name,
+  specialty: doctor.specialty,
+  hospital: doctor.hospital,
+  fee: doctor.fee,
+  userEmail: user?.email,
+  patientName: form.patientName.value,
+  patientEmail: user?.email,
+  appointmentDate: form.appointmentDate.value,
+  problem: form.problem.value,
+};
 
   try {
 
@@ -194,10 +199,11 @@ const DoctorDetails = () => {
                 />
 
                 <input
-                  type="email"
-                  name="patientEmail"
-                  placeholder="Patient Email"
-                  className="w-full px-5 py-4 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500"
+                 type="email"
+                 name="patientEmail"
+                 defaultValue={user?.email}
+                 readOnly
+                 className="w-full px-5 py-4 rounded-2xl border border-slate-300 outline-none bg-slate-100"
                 />
 
                 <input
