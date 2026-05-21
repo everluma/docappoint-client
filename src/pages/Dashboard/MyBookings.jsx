@@ -2,23 +2,6 @@ import { useEffect, useState } from "react";
 
 const MyBookings = () => {
 
-
-    const handleDeleteBooking = (indexToDelete) => {
-
-  const updatedBookings =
-    bookings.filter(
-      (_, index) =>
-        index !== indexToDelete
-    );
-
-  setBookings(updatedBookings);
-
-  localStorage.setItem(
-    "bookings",
-    JSON.stringify(updatedBookings)
-  );
-};
-
   const [bookings, setBookings] =
     useState([]);
 
@@ -32,6 +15,22 @@ const MyBookings = () => {
     setBookings(storedBookings);
 
   }, []);
+
+  const handleDeleteBooking = (indexToDelete) => {
+
+    const updatedBookings =
+      bookings.filter(
+        (_, index) =>
+          index !== indexToDelete
+      );
+
+    setBookings(updatedBookings);
+
+    localStorage.setItem(
+      "bookings",
+      JSON.stringify(updatedBookings)
+    );
+  };
 
   return (
     <section className="p-5 lg:p-10">
@@ -84,9 +83,9 @@ const MyBookings = () => {
                     className="bg-white rounded-[30px] border border-slate-200 p-7 shadow-sm hover:shadow-xl duration-300"
                   >
 
-                    <div className="flex items-center justify-between gap-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                      <span className="px-4 py-2 rounded-full bg-cyan-100 text-cyan-600 text-sm font-semibold">
+                      <span className="px-4 py-2 rounded-full bg-cyan-100 text-cyan-600 text-sm font-semibold w-fit">
 
                         {booking.specialty}
 
@@ -100,27 +99,27 @@ const MyBookings = () => {
 
                     </div>
 
-                    <h2 className="text-3xl font-black text-slate-900 mt-6">
+                    <h2 className="text-3xl font-black text-slate-900 mt-6 break-words">
 
                       {booking.doctorName}
 
                     </h2>
 
-                    <p className="text-slate-500 mt-3">
+                    <p className="text-slate-500 mt-3 break-words">
 
                       {booking.hospital}
 
                     </p>
 
-                    <div className="mt-8 space-y-3">
+                    <div className="mt-8 space-y-4">
 
-                      <div className="flex justify-between gap-5">
+                      <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-5">
 
                         <span className="text-slate-500">
                           Patient
                         </span>
 
-                        <span className="font-semibold text-slate-900text-right">
+                        <span className="font-semibold text-slate-900 text-right break-words">
 
                           {booking.patientName}
 
@@ -128,13 +127,13 @@ const MyBookings = () => {
 
                       </div>
 
-                      <div className="flex justify-between gap-5">
+                      <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-5">
 
                         <span className="text-slate-500">
                           Email
                         </span>
 
-                        <span className="font-semibold text-slate-900text-right">
+                        <span className="font-semibold text-slate-900 text-right break-all">
 
                           {booking.patientEmail}
 
@@ -142,13 +141,13 @@ const MyBookings = () => {
 
                       </div>
 
-                      <div className="flex justify-between gap-5">
+                      <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-5">
 
                         <span className="text-slate-500">
                           Fee
                         </span>
 
-                        <span className="font-semibold text-slate-900text-right">
+                        <span className="font-semibold text-slate-900 text-right">
 
                           ৳{booking.fee}
 
@@ -164,7 +163,7 @@ const MyBookings = () => {
                         Problem Description
                       </h4>
 
-                      <p className="text-slate-500 mt-3 leading-relaxed">
+                      <p className="text-slate-500 mt-3 leading-relaxed break-words">
 
                         {booking.problem}
 
@@ -173,13 +172,13 @@ const MyBookings = () => {
                     </div>
 
                     <button
-                    onClick={ () =>
-                    handleDeleteBooking(index)
-                    }
-                    className="w-full mt-6 py-4 rounded-2xl bg-red-500 text-white font-semibold hover:bg-red-600 duration-300"
-                >
-               Cancel Booking
-                </button>
+                      onClick={() =>
+                        handleDeleteBooking(index)
+                      }
+                      className="w-full mt-6 py-4 rounded-2xl bg-red-500 text-white font-semibold hover:bg-red-600 duration-300"
+                    >
+                      Cancel Booking
+                    </button>
 
                   </div>
                 )
