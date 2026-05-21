@@ -60,6 +60,10 @@ const MyBookings = () => {
 };
 
   return (
+
+    <>
+
+
     <section className="p-5 lg:p-10">
 
       <div className="flex items-center justify-between flex-wrap gap-5">
@@ -200,12 +204,12 @@ const MyBookings = () => {
 
                     {/* update booking button */}
                    <button
-onClick={() =>
-  setSelectedBooking(booking)
-}
-className="w-full mt-6 py-4 rounded-2xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 duration-300"
->
-Update Booking
+                  onClick={() =>
+                  setSelectedBooking(booking)
+                }
+               className="w-full mt-6 py-4 rounded-2xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 duration-300"
+               >
+               Update Booking
                    </button>
 
                     <button
@@ -226,8 +230,83 @@ Update Booking
         )
       }
 
+      
+
     </section>
+
+    {/* modals */}
+
+    {
+  selectedBooking && (
+
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-5">
+
+      <div className="bg-white w-full max-w-2xl rounded-[30px] p-8">
+
+        <h2 className="text-3xl font-black text-slate-900">
+          Update Booking
+        </h2>
+
+        <form className="mt-6 space-y-5">
+
+          <input
+            type="text"
+            defaultValue={selectedBooking.patientName}
+            className="w-full px-5 py-4 rounded-2xl border border-slate-300"
+          />
+
+          <input
+            type="email"
+            defaultValue={selectedBooking.patientEmail}
+            readOnly
+            className="w-full px-5 py-4 rounded-2xl border border-slate-300 bg-slate-100"
+          />
+
+          <input
+            type="date"
+            defaultValue={selectedBooking.appointmentDate}
+            className="w-full px-5 py-4 rounded-2xl border border-slate-300"
+          />
+
+          <textarea
+            defaultValue={selectedBooking.problem}
+            rows="4"
+            className="w-full px-5 py-4 rounded-2xl border border-slate-300 resize-none"
+          ></textarea>
+
+          <div className="flex gap-4">
+
+            <button
+              type="button"
+              onClick={() =>
+                setSelectedBooking(null)
+              }
+              className="w-full py-4 rounded-2xl border border-slate-300 font-semibold"
+            >
+              Cancel
+            </button>
+
+            <button
+              className="w-full py-4 rounded-2xl bg-cyan-500 text-white font-semibold"
+            >
+              Save Changes
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  )
+}
+
+
+    </>
   );
+
+
 };
 
 export default MyBookings;
