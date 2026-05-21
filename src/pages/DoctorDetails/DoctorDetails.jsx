@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 
 import doctors from "../../data/doctors";
 
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 const DoctorDetails = () => {
+
+  const axiosSecure = useAxiosSecure();
 
   const { id } = useParams();
 
@@ -12,7 +16,7 @@ const DoctorDetails = () => {
   );
 
 
-  const handleBooking = (e) => {
+ const handleBooking = async (e) => {
 
   e.preventDefault();
 
@@ -30,20 +34,28 @@ const DoctorDetails = () => {
     problem: form.problem.value,
   };
 
-  const existingBookings =
-    JSON.parse(localStorage.getItem("bookings")) || [];
+  try {
 
-  existingBookings.push(bookingData);
+    await axiosSecure.post(
+      "/bookings",
+      bookingData
+    );
 
-  localStorage.setItem(
-    "bookings",
-    JSON.stringify(existingBookings)
-  );
+    toast.success(
+      "Appointment booked successfully!"
+    );
 
-  toast.success("Appointment booked successfully!");
+    form.reset();
 
-  form.reset();
-  };
+  } catch (error) {
+
+    console.log(error);
+
+    toast.error(
+      "Booking failed!"
+    );
+  }
+};
 
 
   if (!doctor) {
