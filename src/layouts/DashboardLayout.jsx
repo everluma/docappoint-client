@@ -30,7 +30,7 @@ const DashboardLayout = () => {
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[320px_1fr]">
 
         {/* sidebar */}
-        <aside className="bg-white border-r border-slate-200 p-6 lg:p-8 sticky top-0 h-screen">
+        <aside className="bg-white border-r border-slate-200 p-6 lg:p-8 lg:sticky lg:top-0 lg:h-screen">
 
           {/* logo */}
           <div>
