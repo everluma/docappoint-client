@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const MyBookings = () => {
 
@@ -52,7 +53,11 @@ const MyBookings = () => {
 
     setBookings(remainingBookings);
 
+    toast.success("Booking cancelled successfully!");
+
   } catch (error) {
+    
+    toast.error("Failed to update booking!");
 
     console.log(error);
 
@@ -98,11 +103,15 @@ const MyBookings = () => {
 
     setBookings(updatedBookings);
 
+    toast.success("Booking updated successfully!");
+
     setSelectedBooking(null);
 
   } catch (error) {
 
     console.log(error);
+
+    toast.error("Failed to update booking!");
 
   }
 };
