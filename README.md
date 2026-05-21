@@ -1,16 +1,106 @@
-# React + Vite
+# 🩺 DocAppoint
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DocAppoint is a modern healthcare appointment booking platform where users can explore doctors, view detailed profiles, and book appointments easily through a responsive and user-friendly interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Live Website
 
-## React Compiler
+🔗 https://docappoint-client-f4nr.vercel.app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Main Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔐 Firebase Authentication (Email/Password + Google Login)
+- 👨‍⚕️ Dynamic doctor data loaded from MongoDB database
+- 🔍 Search doctors by specialty or doctor name
+- 📅 Appointment booking system with patient details
+- 🧾 User dashboard for managing bookings
+- ❌ Cancel appointments instantly
+- 🛡️ Protected private routes using JWT authentication
+- 📱 Fully responsive design for mobile, tablet, and desktop
+- ⚡ Fast frontend deployment with Vercel
+- ☁️ Backend deployed on Render
+
+---
+
+## 🛠️ Technologies Used
+
+### Frontend
+- React
+- React Router
+- Tailwind CSS
+- Axios
+- Firebase Authentication
+- React Hot Toast
+- React Icons
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- JWT
+- Cookie Parser
+- CORS
+
+---
+
+## 📦 NPM Packages Used
+
+```bash
+react-router-dom
+axios
+firebase
+react-hot-toast
+react-icons
+framer-motion
+cors
+dotenv
+jsonwebtoken
+cookie-parser
+mongodb
+```
+
+---
+
+## 🚀 Installation & Setup
+
+### Clone the repository
+
+```bash
+git clone https://github.com/your-username/docappoint-client.git
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run locally
+
+```bash
+npm run dev
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env.local` file in the client folder and add:
+
+```env
+VITE_apiKey=your_api_key
+VITE_authDomain=your_auth_domain
+VITE_projectId=your_project_id
+VITE_storageBucket=your_storage_bucket
+VITE_messagingSenderId=your_sender_id
+VITE_appId=your_app_id
+```
+
+---
+
+## 👩‍💻 Developed By
+
+Farjana Aktar Monisha
