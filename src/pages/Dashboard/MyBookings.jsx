@@ -59,6 +59,54 @@ const MyBookings = () => {
   }
 };
 
+  //  Handle updated booking 
+
+  const handleUpdateBooking = async (e) => {
+
+  e.preventDefault();
+
+  const form = e.target;
+
+  const updatedBooking = {
+    patientName: form.patientName.value,
+    appointmentDate: form.appointmentDate.value,
+    problem: form.problem.value,
+  };
+
+  try {
+
+    await axiosSecure.put(
+      `/bookings/${selectedBooking._id}`,
+      updatedBooking
+    );
+
+    const updatedBookings =
+      bookings.map((booking) => {
+
+        if (
+          booking._id === selectedBooking._id
+        ) {
+
+          return {
+            ...booking,
+            ...updatedBooking,
+          };
+        }
+
+        return booking;
+      });
+
+    setBookings(updatedBookings);
+
+    setSelectedBooking(null);
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+};
+
   return (
 
     <>
@@ -247,10 +295,14 @@ const MyBookings = () => {
           Update Booking
         </h2>
 
-        <form className="mt-6 space-y-5">
+        <form
+        onSubmit={handleUpdateBooking}
+        className="mt-6 space-y-5"
+        >
 
           <input
             type="text"
+            name="patientName"
             defaultValue={selectedBooking.patientName}
             className="w-full px-5 py-4 rounded-2xl border border-slate-300"
           />
@@ -264,11 +316,13 @@ const MyBookings = () => {
 
           <input
             type="date"
+            name="appointmentDate"
             defaultValue={selectedBooking.appointmentDate}
             className="w-full px-5 py-4 rounded-2xl border border-slate-300"
           />
 
           <textarea
+          name="problem"
             defaultValue={selectedBooking.problem}
             rows="4"
             className="w-full px-5 py-4 rounded-2xl border border-slate-300 resize-none"
