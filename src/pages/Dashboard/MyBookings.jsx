@@ -10,6 +10,9 @@ const MyBookings = () => {
   const [bookings, setBookings] =
     useState([]);
 
+    const [selectedBooking, setSelectedBooking] =
+  useState(null);
+
     const { user } = useContext(AuthContext);
 
  useEffect(() => {
@@ -194,6 +197,16 @@ const MyBookings = () => {
                       </p>
 
                     </div>
+
+                    {/* update booking button */}
+                   <button
+onClick={() =>
+  setSelectedBooking(booking)
+}
+className="w-full mt-6 py-4 rounded-2xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 duration-300"
+>
+Update Booking
+                   </button>
 
                     <button
                       onClick={() =>
