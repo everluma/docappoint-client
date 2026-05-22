@@ -1,27 +1,70 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import DoctorCard from "../../components/Doctors/DoctorCard";
 
-import doctors from "../../data/doctors";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+
+import LoadingSpinner from "../../shared/Loading/LoadingSpinner";
 
 const AllAppointments = () => {
+
+  const axiosSecure =
+    useAxiosSecure();
+
+  const [doctors, setDoctors] =
+    useState([]);
+
+  const [loading, setLoading] =
+    useState(true);
 
   const [searchText, setSearchText] =
     useState("");
 
-  const filteredDoctors =
-    doctors.filter((doctor) =>
-      doctor.name
-        .toLowerCase()
-        .includes(
-          searchText.toLowerCase()
-        ) ||
-      doctor.specialty
-        .toLowerCase()
-        .includes(
-          searchText.toLowerCase()
-        )
-    );
+  const [sortOption, setSortOption] =
+    useState("");
+
+  // seo title
+  useEffect(() => {
+
+    document.title =
+      "All Appointments | DocAppoint";
+
+  }, []);
+
+  // fetch doctors
+  useEffect(() => {
+
+    setLoading(true);
+
+    axiosSecure
+      .get(
+        `/doctors?search=${searchText}&sort=${sortOption}`
+      )
+      .then((res) => {
+
+        setDoctors(res.data);
+
+        setLoading(false);
+
+      })
+      .catch((error) => {
+
+        console.log(error);
+
+        setLoading(false);
+
+      });
+
+  }, [
+    axiosSecure,
+    searchText,
+    sortOption,
+  ]);
+
+  // loading
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <section className="max-w-7xl mx-auto px-5 py-16">
@@ -39,8 +82,8 @@ const AllAppointments = () => {
 
       </div>
 
-      {/* search */}
-      <div className="mt-10 max-w-2xl mx-auto">
+      {/* search + sort */}
+      <div className="mt-10 flex flex-col lg:flex-row gap-5 max-w-4xl mx-auto">
 
         <input
           type="text"
@@ -52,11 +95,33 @@ const AllAppointments = () => {
           className="w-full px-6 py-5 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500 shadow-sm"
         />
 
+        <select
+          value={sortOption}
+          onChange={(e) =>
+            setSortOption(e.target.value)
+          }
+          className="px-6 py-5 rounded-2xl border border-slate-300 outline-none focus:border-cyan-500 shadow-sm"
+        >
+
+          <option value="">
+            Sort By Fee
+          </option>
+
+          <option value="fee_asc">
+            Fee Low To High
+          </option>
+
+          <option value="fee_desc">
+            Fee High To Low
+          </option>
+
+        </select>
+
       </div>
 
-      {/* empty state */}
+      {/* no result */}
       {
-        filteredDoctors.length === 0 && (
+        doctors.length === 0 && (
           <div className="text-center py-20">
 
             <h3 className="text-3xl font-bold text-slate-800">
@@ -75,9 +140,9 @@ const AllAppointments = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
 
         {
-          filteredDoctors.map((doctor) => (
+          doctors.map((doctor) => (
             <DoctorCard
-              key={doctor.id}
+              key={doctor._id}
               doctor={doctor}
             />
           ))

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import {
   useContext,
   useState,
@@ -21,6 +23,15 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 
 const Login = () => {
+
+  // title
+
+  useEffect(() => {
+
+  document.title =
+    "DocAppoint | Login";
+
+}, []);
 
   // functionality code
 

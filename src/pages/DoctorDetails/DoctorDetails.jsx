@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
@@ -18,6 +20,21 @@ const DoctorDetails = () => {
   const doctor = doctors.find(
     (doc) => doc.id === id
   );
+
+  useEffect(() => {
+
+  if (doctor) {
+
+    document.title =
+      `${doctor.name} | DocAppoint`;
+
+  } else {
+
+    document.title =
+      "Doctor Details | DocAppoint";
+  }
+
+}, [doctor]);
 
 
  const handleBooking = async (e) => {

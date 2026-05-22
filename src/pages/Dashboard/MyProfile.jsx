@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 import { updateProfile } from "firebase/auth";
@@ -6,6 +6,15 @@ import { updateProfile } from "firebase/auth";
 import { toast } from "react-hot-toast";
 
 const MyProfile = () => {
+
+  // title
+
+  useEffect(() => {
+
+  document.title =
+    "My Profile | DocAppoint";
+
+}, []);
 
   const { user } =
     useContext(AuthContext);
